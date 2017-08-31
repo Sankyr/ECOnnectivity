@@ -7,13 +7,28 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  
+  <link rel="stylesheet" href="ECOStyleSheet.css">
+  <script src="mapController.js"></script>
 </head>
 <body>
 
-<div class="container">
-  <h1>My First Bootstrap Page</h1>
-  <p>This is some text.</p> 
+<div class="container text-center">
+  <div class="page-header">
+    <h1>ECOnnectivity</h1>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+	  <p>Select locations on the map to get route between them</p>
+    </div>
+  </div>
 </div>
+
+<div id="map"></div>
+
+<script async, defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDmxWnVAeqlMO1LGDLRBQlCRpDJ18Sdszo&callback=initMap"></script>
 
 </body>
 </html>
+
+<!-- AIzaSyDmxWnVAeqlMO1LGDLRBQlCRpDJ18Sdszo -->
