@@ -1,17 +1,24 @@
 function initMap() {
-	var mapOptions = {
-		center: new google.maps.LatLng(40.719, -73.008),
-		zoom: 10,
-		mapTypeId: google.maps.MapTypeId.HYBRID
-	}
-	var map = new google.maps.Map(document.getElementById("map"), mapOptions);
-	createMarker(map);
+  var map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 16,
+    center: {lat: 30.211537759527246, lng: -92.02144145965576}
+  });
+
+  map.addListener('click', function(e) {
+	addLocation(e.latLng);
+    placeMarkerAndPanTo(e.latLng, map);
+  });
 }
 
-function createMarker(map){
-	var marker = new google.maps.Marker({
-		position: {lat: 40.719, lng: -73.008},
-		map: map,
-		title: 'First Marker'
-	});
+function addLocation(latLng) {
+  var div = document.getElementById('locations');
+  div.innerHTML += '<div class="col-sm-6"><p class="location">{lat: '+latLng.lat()+', lng: '+latLng.lng()+'}</p></div><div class="col-sm-6"><button type="button"><span class="glyphicon glyphicon-trash"></span></button></div>';
+}
+
+function placeMarkerAndPanTo(latLng, map) {
+  var marker = new google.maps.Marker({
+    position: latLng,
+    map: map
+  });
+  map.panTo(latLng);
 }
