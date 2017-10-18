@@ -26,13 +26,16 @@
   </div>
 </div>
 
-<div id="map"></div>
+
 <div class="container">
   <div class="row">
-    <div class="col-sm-4 col-sm-offset-4">
+    <div class="col-sm-4">
+	  <div id="directionsPanel"></div>
       <ul id="locations" class="list-group"></ul>
 	  <button type="button" onclick="calcRoute()">Get Route</button>
+	  <button type="button" onclick="clearRoute()">Clear Route</button>
 	</div>
+	<div id="map" class="col-sm-8"></div>
   </div>
 </div>
 

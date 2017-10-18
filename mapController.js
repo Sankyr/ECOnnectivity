@@ -2,6 +2,8 @@ var directionsDisplay;
 var directionsService;
 var map;
 
+var markers = [];
+
 function initMap() {
   directionsDisplay = new google.maps.DirectionsRenderer();
   directionsService = new google.maps.DirectionsService();
@@ -14,7 +16,6 @@ function initMap() {
 	addLocation(e.latLng);
     placeMarkerAndPanTo(e.latLng);
   });
-  directionsDisplay.setMap(map);
 }
 
 function addLocation(latLng) {
@@ -34,6 +35,7 @@ function placeMarkerAndPanTo(latLng) {
     position: latLng,
     map: map
   });
+  markers.push(marker);
   map.panTo(latLng);
 }
 
@@ -41,7 +43,17 @@ function getWayPoints(e){
 	return {location: JSON.parse(e.dataset.loc), stopover: true };
 }
 
+function clearRoute() {
+	document.getElementById('directionsPanel').innerHTML = "";
+	document.getElementById('locations').innerHTML = "";
+	directionsDisplay.setMap(null);
+	directionsDisplay = null
+}
+
 function calcRoute() {
+  directionsDisplay = new google.maps.DirectionsRenderer();
+  directionsDisplay.setMap(map);
+  directionsDisplay.setPanel(document.getElementById('directionsPanel'));
   var locations = document.getElementsByClassName("location");
   var wayPoints = Array.prototype.slice.call( locations ).map(getWayPoints);
   var start = JSON.parse(locations[0].dataset.loc);
@@ -59,4 +71,7 @@ function calcRoute() {
       directionsDisplay.setDirections(result);
     }
   });
+	for(var i = 0; i < markers.length; i++)
+		markers[i].setMap(null)
+	markets = []
 }
