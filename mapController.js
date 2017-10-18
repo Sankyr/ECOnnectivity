@@ -46,8 +46,30 @@ function getWayPoints(e){
 function clearRoute() {
 	document.getElementById('directionsPanel').innerHTML = "";
 	document.getElementById('locations').innerHTML = "";
+	document.getElementById('time').innerHTML = "";
 	directionsDisplay.setMap(null);
-	directionsDisplay = null
+	directionsDisplay = null;
+}
+
+function metersToImperial(meters){
+	feet = 3.28084*meters;
+	miles = feet/5280;
+	if(feet > 5280)//feet in a mile
+		return miles.toFixed(3) + " miles";
+	else
+		return Math.floor(feet) + " feet";
+}
+
+function simplifyTime(seconds){
+	hours = Math.floor(seconds/3600);
+	minutes = Math.floor((seconds % 3600) / 60);
+	seconds = seconds % 60
+	if(hours > 0)//seconds in an hour
+		return hours + "hours," + minutes + " minutes, and " + seconds + " seconds";
+	else if(minutes > 0)
+		return minutes + " minutes and " + seconds + " seconds";
+	else
+		return seconds + " seconds"
 }
 
 function calcRoute() {
@@ -70,7 +92,16 @@ function calcRoute() {
     if (status == 'OK') {
       directionsDisplay.setDirections(result);
     }
+	var time = 0;
+	var distance = 0;
+	result.routes[0].legs.forEach(function(leg){
+	  time += leg.duration.value
+	  distance += leg.distance.value
+	});
+	document.getElementById('distance').innerHTML = "Total Distance: " + metersToImperial(distance);
+	document.getElementById('time').innerHTML = "Total Time: " + simplifyTime(time);
   });
+  
 	for(var i = 0; i < markers.length; i++)
 		markers[i].setMap(null)
 	markets = []
